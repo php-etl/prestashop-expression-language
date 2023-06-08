@@ -1,0 +1,36 @@
+{
+    "name": "php-etl/prestashop-expression-language",
+    "description": "This library implements functions for manipulating Prestashop data in ExpressionLanguage",
+    "type": "library",
+    "require": {
+        "php": ">=8.2",
+        "symfony/expression-language": "^6.0",
+        "symfony/property-access": "^6.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "rector/rector": "^0.15"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Grégory Planchat",
+            "email": "gregory@kiboko.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Kiboko\\Component\\PrestashopExpressionLanguage\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
