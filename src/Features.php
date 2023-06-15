@@ -33,7 +33,11 @@ final class Features extends ExpressionFunction
 
                         if (is_iterable($value)) {
                             foreach ($value as $iterableValue) {
-                                $results[]['product_feature'] = [
+                                if (!array_key_exists($iterableValue, $feature['values'])) {
+                                    echo 'Feature "'.$feature['akeneo_code'].'": incoming value "'.$iterableValue.'" has no replacement.';
+                                    continue;
+                                }
+                                $results['product_feature'][] = [
                                     'id' => $feature['prestashop_id'],
                                     'id_feature_value' => $feature['values'][$iterableValue]
                                 ];
@@ -42,7 +46,11 @@ final class Features extends ExpressionFunction
                             continue;
                         }
 
-                        $results[]['product_feature'] = [
+                        if (!array_key_exists($value, $feature['values'])) {
+                            echo 'Feature "'.$feature['akeneo_code'].'": incoming value "'.$value.'" has no replacement.';
+                            continue;
+                        }
+                        $results['product_feature'][] = [
                             'id' => $feature['prestashop_id'],
                             'id_feature_value' => $feature['values'][$value]
                         ];
@@ -69,7 +77,7 @@ final class Features extends ExpressionFunction
 
                 if (is_iterable($value)) {
                     foreach ($value as $iterableValue) {
-                        $results[]['product_feature'] = [
+                        $results['product_feature'][] = [
                             'id' => $feature['prestashop_id'],
                             'id_feature_value' => $feature['values'][$iterableValue]
                         ];
@@ -78,7 +86,7 @@ final class Features extends ExpressionFunction
                     continue;
                 }
 
-                $results[]['product_feature'] = [
+                $results['product_feature'][] = [
                     'id' => $feature['prestashop_id'],
                     'id_feature_value' => $feature['values'][$value]
                 ];

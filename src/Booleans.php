@@ -27,7 +27,7 @@ final class Booleans extends ExpressionFunction
                     if (array_key_exists($optionName, $input['values'])) {
                         $value = $input['values'][$optionName][0]['data'];
 
-                        $results[]['product_option_value']['id'] = $value === true ? $replacements["true"] : $replacements["false"];
+                        $results['product_option_value'][]['id'] = $value === true ? $replacements["true"] : $replacements["false"];
                     }
                 }
                 
@@ -45,7 +45,7 @@ final class Booleans extends ExpressionFunction
             if (array_key_exists($optionName, $input['values'])) {
                 $value = $input['values'][$optionName][0]['data'];
 
-                $results[]['product_option_value']['id'] = $value === true ? $replacements["true"] : $replacements["false"];
+                $results['product_option_value'][]['id'] = $value === true ? $replacements["true"] : $replacements["false"];
             }
         }
 

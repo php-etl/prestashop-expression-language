@@ -32,7 +32,7 @@ final class Measurements extends ExpressionFunction
                             continue;
                         }
 
-                        $results[]['product_option_value']['id'] = $replacements[$value];
+                        $results['product_option_value'][]['id'] = $replacements[$value];
                     }
                 }
                 
@@ -55,7 +55,7 @@ final class Measurements extends ExpressionFunction
                     continue;
                 }
 
-                $results[]['product_option_value']['id'] = $replacements[$value];
+                $results['product_option_value'][]['id'] = $replacements[$value];
             }
         }
 
