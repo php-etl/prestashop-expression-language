@@ -32,7 +32,7 @@ final class Measurements extends ExpressionFunction
                             continue;
                         }
 
-                        $results['product_option_value'][]['id'] = $replacements[$value];
+                        $results[]['id'] = $replacements[$value];
                     }
                 }
                 
@@ -47,15 +47,15 @@ final class Measurements extends ExpressionFunction
     {
         $results = [];
         foreach ($data as $optionName => $replacements) {
-            if (array_key_exists($optionName, $input['values'])) {
+            if (\array_key_exists($optionName, $input['values'])) {
                 $value = $input['values'][$optionName][0]['data']['amount'];
 
-                if (!array_key_exists($value, $replacements)) {
+                if (!\array_key_exists($value, $replacements)) {
                     echo 'Measurement "'.$optionName.'": incoming value "'.$value.'" has no replacement.';
                     continue;
                 }
 
-                $results['product_option_value'][]['id'] = $replacements[$value];
+                $results[]['id'] = $replacements[$value];
             }
         }
 

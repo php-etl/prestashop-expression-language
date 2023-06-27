@@ -31,7 +31,7 @@ final class Lists extends ExpressionFunction
                                 continue;
                             }
                             
-                            $results['product_option_value'][]['id'] = $replacements[$value];
+                            $results[]['id'] = $replacements[$value];
                         }
                     }
                 }
@@ -47,14 +47,14 @@ final class Lists extends ExpressionFunction
     {
         $results = [];
         foreach ($data as $optionName => $replacements) {
-            if (array_key_exists($optionName, $input['values'])) {
+            if (\array_key_exists($optionName, $input['values'])) {
                 foreach ($input['values'][$optionName][0]['data'] as $value) {
-                    if (!array_key_exists($value, $replacements)) {
+                    if (!\array_key_exists($value, $replacements)) {
                         echo 'Multiselect "'.$optionName.'": incoming value "'.$value.'" has no replacement.';
                         continue;
                     }
 
-                    $results['product_option_value'][]['id'] = $replacements[$value];
+                    $results[]['id'] = $replacements[$value];
                 }
             }
         }

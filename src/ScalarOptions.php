@@ -6,7 +6,7 @@ namespace Kiboko\Component\PrestashopExpressionLanguage;
 
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 
-final class Scalars extends ExpressionFunction
+final class ScalarOptions extends ExpressionFunction
 {
     public function __construct($name)
     {
@@ -21,7 +21,7 @@ final class Scalars extends ExpressionFunction
     {
         $pattern = <<<'PHP'
             (function() use ($input) {
-                $results = [];
+                $results = $input['association']['product_option_values']['product_option_value'] ?? [];
                 $data = %s;
                 foreach ($data as $optionName => $replacements) {
                     if (array_key_exists($optionName, $input['values'])) {
@@ -32,7 +32,7 @@ final class Scalars extends ExpressionFunction
                             continue;
                         }
 
-                        $results['product_option_value'][]['id'] = $replacements[$value];
+                        $results[]['id'] = $replacements[$value];
                     }
                 }
                 
@@ -47,15 +47,15 @@ final class Scalars extends ExpressionFunction
     {
         $results = [];
         foreach ($data as $optionName => $replacements) {
-            if (array_key_exists($optionName, $input['values'])) {
+            if (\array_key_exists($optionName, $input['values'])) {
                 $value = $input['values'][$optionName][0]['data'];
 
-                if (!array_key_exists($value, $replacements)) {
+                if (!\array_key_exists($value, $replacements)) {
                     echo 'Scalar "'.$optionName.'": incoming value "'.$value.'" has no replacement.';
                     continue;
                 }
 
-                $results['product_option_value'][]['id'] = $replacements[$value];
+                $results[]['id'] = $replacements[$value];
             }
         }
 
