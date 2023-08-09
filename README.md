@@ -39,14 +39,14 @@ Attribute functions
 
 Functions that turn an Akeneo attribute into a Prestashop attribute_option_value.
 
-#### booleans
+### booleans
 
 ```yaml
 # input
 {values: {new_collection: [{scope: null, data: true}]}}
 
 #function
-field: '[associations][product_option_values]'
+field: '[associations][product_option_values][product_option_value]'
 expression: 'booleans({ new_collection: {true: 52, false: 53} })'
 
 #output
@@ -59,14 +59,14 @@ expression: 'booleans({ new_collection: {true: 52, false: 53} })'
 </associations>
 ```
 
-#### lists
+### lists
 
 ```yaml
 # input
 {values: {categories: ["spring", "summer"]}}
 
 #function
-field: '[associations][product_option_values]'
+field: '[associations][product_option_values][product_option_value]'
 expression: 'lists({ categories: {spring: 74, autumn: 75, summer: 76} })'
 
 #output
@@ -82,14 +82,14 @@ expression: 'lists({ categories: {spring: 74, autumn: 75, summer: 76} })'
 </associations>
 ```
 
-#### measurements
+### measurements
 
 ```yaml
 # input
 {values: {weigth_net: {scope: null, data: {amount: "341.000"}}}}
 
 #function
-field: '[associations][product_option_values]'
+field: '[associations][product_option_values][product_option_value]'
 expression: 'measurements({ weigth_net: {"340.000": 21, "341.000": 22, "342.000": 23} })'
 
 #output
@@ -102,14 +102,14 @@ expression: 'measurements({ weigth_net: {"340.000": 21, "341.000": 22, "342.000"
 </associations>
 ```
 
-#### scalars
+### scalars
 
 ```yaml
 # input
 {values: {color: {scope: null, data: "navy_blue"}}}
 
 #function
-field: '[associations][product_option_values]'
+field: '[associations][product_option_values][product_option_value]'
 expression: 'scalars({ navy_blue: {salmon: 39, citrus: 40, navy_blue: 41, anthracite: 42} })'
 
 #output
@@ -127,8 +127,77 @@ Features function
 
 Function that turns an Akeneo attribute into a Prestashop feature.
 
-#### features
+### booleanAttributeToFeature
+```yaml
+# input
+{values: {color: true, varnish: false}}
 
+# function
+- field: '[associations][product_features]'
+    expression: >
+      booleanAttributeToFeature([
+        {
+          akeneo_code: 'color',
+          prestashop_id: 16,
+          values: {
+            true: 120,
+            false: 121,
+          }
+        },
+        {
+          akeneo_code: 'varnish',
+          prestashop_id: 20,
+          values: {
+            true: 63,
+            false: 64
+          }
+        }
+      ])
+      
+# output
+<associations>
+  <product_features>
+    <product_feature>
+      <id>16</id>
+      <id_feature_value>120</id_feature_value>
+    </product_feature>
+    <product_feature>
+      <id>20</id>
+      <id_feature_value>64</id_feature_value>
+    </product_feature>
+  </product_features>
+</associations>
+```
+
+### mapFeatures
+```yaml
+# input
+{id_feature_value: '23,24,25', id: 17}
+
+# function
+- field: '[associations][product_features]'
+  expression: 'mapFeatures(lookup)'
+
+# output
+<associations>
+  <product_features>
+    <product_feature>
+      <id>23</id>
+      <id_feature_value>17</id_feature_value>
+    </product_feature>
+    <product_feature>
+      <id>24</id>
+      <id_feature_value>17</id_feature_value>
+    </product_feature>
+    <product_feature>
+      <id>25</id>
+      <id_feature_value>17</id_feature_value>
+    </product_feature>
+  </product_features>
+</associations>
+```
+
+### features
 ```yaml
 # input
 {values: {norm: {scope: null, data: "ean188"}}}
@@ -157,4 +226,38 @@ expression: >
         </product_feature>
     </product_features>
 </associations>
+```
+
+### mapIds
+```yaml
+# input
+{1,2,3}
+
+# function
+- field: '[categories]'
+  expression: 'mapIds(input)'
+
+# output
+<categories>
+  <id>1</id>
+  <id>2</id>
+  <id>3</id>
+</categories>
+```
+
+### splitAndTrim
+```yaml
+# input
+{' Foo, bAr ,BAZ'}
+
+# function
+- field: '[words]'
+  expression: 'splitAndTrim(",", input)'
+
+# output
+<words>
+  <0>foo</0>
+  <1>bar</1>
+  <2>baz</2>
+</words>
 ```

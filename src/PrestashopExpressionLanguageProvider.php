@@ -18,6 +18,7 @@ class PrestashopExpressionLanguageProvider implements ExpressionFunctionProvider
             new MapIds('mapIds'),
             new Measurements('measurements'),
             new ScalarOptions('scalars'),
+            new SplitAndTrim('splitAndTrim'),
         ];
     }
 }
